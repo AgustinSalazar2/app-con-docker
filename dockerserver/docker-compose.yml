@@ -1,0 +1,44 @@
+version: '3'
+
+services:
+  db:
+    image: mariadb  # Nombre de la imagen existente de MariaDB
+    container_name: "mysql"
+    restart: always
+    ports:
+      - "3306:3306"
+  environment:
+    MYSQL_ROOT_PASSWORD: agustin123
+    MYSQL_DATABASE: productos_db
+  volumes:
+    - './mysql:/var/lib/mysql'
+  networks:
+    mynet:
+      ipv4_address: 192.168.5.2
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: app_nodejs
+    restart: always
+    ports:
+      - "4000:3000"
+    depends_on:
+      - db
+
+  volumes:
+    - './:/usr/src/dockerserver'
+  command: npm run dev
+  networks:
+    mynet:
+      ipv4_address: 192.168.5.3
+
+  networks:
+  mynet:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 192.168.0.0/16
+      ip_range: 192.168.5.0/24
+      gateway: 192.168.0.1
