@@ -18,4 +18,5 @@ EXPOSE 3000
 
 # Comando para ejecutar la aplicación cuando se inicie el contenedor
 # CMD ["npm", "start"]
+# CMD ["npm", "run", "dev"]
 # CMD ["node", "server.js"]

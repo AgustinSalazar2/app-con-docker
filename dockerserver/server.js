@@ -5,7 +5,7 @@ const morgan = require('morgan');
 const productRoutes = require('./src/routes/product');
 
 const app = express();
-const port = 4000;
+const port = 3000;
 // MIDDLEWARE
 app.use(cors())
 app.use(morgan("combined"))
