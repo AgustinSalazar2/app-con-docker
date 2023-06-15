@@ -8,24 +8,25 @@
   }
   
   .card {
-    background-color: #f5f5f5;
+    background-color: rgb(143, 202, 182);
     border-radius: 8px;
-    padding: 20px;
+    padding: 10px;
     margin: 10px;
     width: 200px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    align-items: center;
   }
   
   .button-container {
     display: flex;
     justify-content: space-between;
-    margin-top: 10px;
+    margin-top: 8px;
   }
   
   .button-container button {
-    padding: 5px 10px;
+    padding: 5px 9px;
     border: none;
-    background-color: #3498db;
+    background-color: #e61616;
     color: #fff;
     border-radius: 4px;
     cursor: pointer;
@@ -35,4 +36,23 @@
     background-color: #2980b9;
   }
   
-  
+  .input-container {
+    padding: 5%;
+    background-color: rgb(143, 202, 182);    
+  }
+
+  .input-prod {
+    margin: 5px;
+    /* display: flex; */
+    border-radius: 4px;
+    background-color: rgb(246, 246, 177);
+  }
+
+  .boton-prod {
+    background-color: #067819;
+    align-items: center;
+    border-radius: 5px;
+    margin: 5px;
+    color: white;
+    padding: 6px;
+  }

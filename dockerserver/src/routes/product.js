@@ -44,8 +44,6 @@ router.delete('/product/:id', async (req, res) => {
 });
 
 // Actualizar un producto por su ID
-// Controlador para actualizar productos
-// Controlador para actualizar productos
 router.put('/productos/product/:id', async (req, res) => {
   const id = req.params.id;
   const { nombre, precio } = req.body;
@@ -64,7 +62,5 @@ router.put('/productos/product/:id', async (req, res) => {
     }
   }
 });
-
-
 
 module.exports = router;
