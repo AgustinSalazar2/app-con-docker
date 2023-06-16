@@ -7,6 +7,7 @@ function Productos() {
   const [nombre, setNombre] = useState('');
   const [precio, setPrecio] = useState('');
   const [showUpdateForm, setShowUpdateForm] = useState(false);
+  const [selectedProduct, setSelectedProduct] = useState(null);
 
   useEffect(() => {
     obtenerProductos();
@@ -58,13 +59,56 @@ function Productos() {
     }
   };
 
+  const mostrarFormularioActualizar = (producto) => {
+    setSelectedProduct(producto);
+    setNombre(producto.nombre);
+    setPrecio(producto.precio);
+    setShowUpdateForm(true);
+  };
+
+  const actualizarProducto = async () => {
+    try {
+      const response = await fetch(`http://localhost:4000/productos/product/${selectedProduct.id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ nombre, precio }),
+      });
+  
+      if (response.ok) {
+        obtenerProductos();
+        setSelectedProduct(null)
+        setNombre('');
+        setPrecio('');
+        setShowUpdateForm(false);
+      } else {
+        console.error('Error al actualizar el producto');
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <div>
-      <h2>Agregar Producto</h2>
       <div className="input-container">
+        <h2>Agregar Producto</h2>
         <input className='input-prod' type="text" value={nombre} onChange={handleNombreChange} placeholder="Nombre" />
         <input className='input-prod' type="text" value={precio} onChange={handlePrecioChange} placeholder="Precio" />
-        <button className='boton-prod' onClick={agregarProducto}> Agregar </button>
+        {/* <button className='boton-prod' onClick={agregarProducto}> Agregar </button>
+        {selectedProduct && (
+          <button className='boton-prod' onClick={actualizarProducto}>Actualizar</button>
+        )} */}
+        {selectedProduct 
+        ?
+          <>
+          <button className='boton-prod' onClick={agregarProducto}> Agregar </button>
+          <button className='boton-prod' onClick={actualizarProducto}>Actualizar</button>
+          </>
+        :
+          <button className='boton-prod' onClick={agregarProducto}> Agregar </button>
+        }
       </div>
 
       <h2>Listado de Productos</h2>
@@ -75,6 +119,7 @@ function Productos() {
             <p>Precio: ${producto.precio}</p>
             <div className="button-container">
               <button onClick={() => eliminarProducto(producto.id)}>Eliminar</button>
+              <button onClick={() => mostrarFormularioActualizar(producto)}>Actualizar</button>
             </div>
           </div>
         ))}
@@ -86,6 +131,7 @@ function Productos() {
             <h2>Actualizar Producto</h2>
             <input type="text" value={nombre} onChange={handleNombreChange} placeholder="Nombre" />
             <input type="text" value={precio} onChange={handlePrecioChange} placeholder="Precio" />
+            <button onClick={actualizarProducto}>Actualizar</button>
             <button onClick={() => setShowUpdateForm(false)}>Cancelar</button>
           </div>
         </div>

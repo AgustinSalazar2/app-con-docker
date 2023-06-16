@@ -44,21 +44,26 @@ router.delete('/product/:id', async (req, res) => {
 });
 
 // Actualizar un producto por su ID
-router.put('/productos/product/:id', async (req, res) => {
-  const id = req.params.id;
+router.put('/product/:id_prod', async (req, res) => {
+  const id = req.params.id_prod;
   const { nombre, precio } = req.body;
 
   if (!nombre || !precio) {
     res.status(400).json({ error: 'Se requiere nombre y precio del producto' });
+    // console.log(nombre, precio)
+
   } else if (!id) {
+    console.log("No hay id")
+    // console.log(id)
     res.status(400).json({ error: 'Se requiere el ID del producto' });
+
   } else {
     try {
       const resultado = await productModel.actualizarProducto(id, nombre, precio);
       res.json(resultado);
     } catch (error) {
-      console.error(error);
       res.status(500).json({ error: 'Error interno del servidor' });
+      console.error(error);
     }
   }
 });
