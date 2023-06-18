@@ -1,5 +1,5 @@
 # Define la imagen base
-FROM node:18
+FROM node:18-alpine
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/dockerserver
@@ -18,5 +18,5 @@ EXPOSE 3000
 
 # Comando para ejecutar la aplicación cuando se inicie el contenedor
 # CMD ["npm", "start"]
-# CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "dev"]
 # CMD ["node", "server.js"]
